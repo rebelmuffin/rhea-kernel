@@ -31,10 +31,12 @@ LINK_LIST=\
 	  $(KERNEL_OBJS) \
 	  $(LIBS)
 
-.PHONY: all clean
+.PHONY: all asm clean
 .SUFFIXES: .o .c .s
 
 all: kernel.bin
+
+asm: $(OBJS:.o=.s)
 
 kernel.bin: $(OBJS) $(ARCHDIR)/linker.ld
 	@mkdir -p $(BUILDDIR)/$(@D)
@@ -48,6 +50,14 @@ $(BUILDDIR)/%.o: %.s
 $(BUILDDIR)/%.o: %.c
 	@mkdir -p $(@D)
 	$(COMPILER) -c $< -o $@ -std=gnu11 $(CFLAGS) $(CPPFLAGS)
+
+$(BUILDDIR)/%.s: %.c
+	@mkdir -p $(@D)
+	$(COMPILER) -c $< -o $@ -std=gnu11 -S $(CFLAGS) $(CPPFLAGS)
+
+$(BUILDDIR)/%.s: %.s
+	@mkdir -p $(@D)
+	@cp $< $@
 
 clean:
 	rm -rf $(BUILDDIR)
