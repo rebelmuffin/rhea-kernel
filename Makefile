@@ -34,14 +34,14 @@ LINK_LIST=\
 .PHONY: all asm clean
 .SUFFIXES: .o .c .s
 
-all: kernel.bin
+all: $(BUILDDIR)/kernel.bin
 
 asm: $(OBJS:.o=.s)
 
-kernel.bin: $(OBJS) $(ARCHDIR)/linker.ld
-	@mkdir -p $(BUILDDIR)/$(@D)
-	$(COMPILER) -T $(ARCHDIR)/linker.ld -o $(BUILDDIR)/$@ $(CFLAGS) $(LINK_LIST)
-	grub-file --is-x86-multiboot $(BUILDDIR)/$@
+$(BUILDDIR)/kernel.bin: $(OBJS) $(ARCHDIR)/linker.ld
+	@mkdir -p $(@D)
+	$(COMPILER) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(LINK_LIST)
+	grub-file --is-x86-multiboot $@
 
 $(BUILDDIR)/%.o: %.s
 	@mkdir -p $(@D)
