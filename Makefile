@@ -20,11 +20,14 @@ LDFLAGS:=$(LDFLAGS) $(KERNEL_ARCH_LDFLAGS)
 LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
 
 KERNEL_OBJS=\
-	    $(BUILDDIR)/$(KERNEL_ARCH_OBJS) \
+	    $(addprefix $(BUILDDIR)/,$(KERNEL_ARCH_OBJS)) \
 	    $(BUILDDIR)/kernel/kernel.o
 
 OBJS=\
      $(KERNEL_OBJS)
+
+SOURCES=\
+	$(KERNEL_SOURCES)
 
 LINK_LIST=\
 	  $(LDFLAGS) \
@@ -46,7 +49,7 @@ $(BUILDDIR)/kernel.bin: $(OBJS) $(ARCHDIR)/linker.ld
 $(BUILDDIR)/%.o: %.s
 	@mkdir -p $(@D)
 	$(COMPILER) -c $< -o $@ $(CFLAGS)
-
+	
 $(BUILDDIR)/%.o: %.c
 	@mkdir -p $(@D)
 	$(COMPILER) -c $< -o $@ -std=gnu11 $(CFLAGS) $(CPPFLAGS)
