@@ -5,7 +5,7 @@ It is created purely for the educational value and is very experimental. You *ca
 
 # Building (ix86)
 To build the kernel, you are going to need the following dependencies:
-- An i686-elf cross compiler: I recommend using a self-compiled version of GCC. (instructions below)
+- An i686-elf cross compiler: I recommend using a self-compiled version of GCC. (instructions for linux below)
 - [GRUB](https://www.gnu.org/software/grub/) command line tools (optional): This is useful for checking to make sure the created kernel binary is multiboot compatible.
 - [QEMU](https://www.qemu.org) (optional): You can *technically* build the kernel without QEMU but you are not going to be able to run and see if it actually works without some VM to run it on.
 
@@ -13,11 +13,15 @@ To build the kernel, you are going to need the following dependencies:
 Coming soon, a little convoluted.
 
 ## MacOS Setup
-You can install the i686-elf-gcc from [homebrew](https://brew.sh) with the command: `brew install i686-elf-gcc`.
-Again, you can use homebrew to install QEMU: `brew install qemu`
+You can use [homebrew](https://brew.sh) to install i686-elf-gcc (GCC with i686-elf as target) and QEMU:
+
+    brew install i686-elf-gcc
+    brew install qemu
 
 Unlike the compiler and QEMU, installing GRUB command line tools is trickier. You are going to have to clone and compile it yourself from the the [development git repository](https://savannah.gnu.org/projects/grub). 
+
 To compile GRUB, you are going to need [objconv](https://github.com/vertis/objconv) (follow the instructions in repository readme to install) and automake (can be installed using homebrew).
+
 After you are done installing objconv, you can install GRUB with the following commands:
 
     brew install automake
