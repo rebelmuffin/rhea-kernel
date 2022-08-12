@@ -93,7 +93,7 @@ After you are done installing objconv, you can install GRUB with the following c
     sudo make install
 
 ## Windows Setup
-No setup for windows, I don't want Windows users contributing to this repository anyway
+No setup for windows, I never tried developing this on windows.
 
 ## Building and Testing The Kernel
 You can easily build the kernel with GNU make using the command `make` in project root.
